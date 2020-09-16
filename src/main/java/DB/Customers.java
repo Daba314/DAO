@@ -1,5 +1,10 @@
 package DB;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class Customers {
     private int id;
     private String firstName;
@@ -14,54 +19,6 @@ public class Customers {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.orderID = orderID;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getOrderID() {
-        return orderID;
-    }
-
-    public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
 }
