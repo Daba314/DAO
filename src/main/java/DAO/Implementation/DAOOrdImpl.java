@@ -1,7 +1,7 @@
 package DAO.Implementation;
 
 import DAO.Interfaces.DAO;
-import DB.Orders;
+import Dependencies.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOOrdImpl implements DAO<Orders> {
+public class DAOOrdImpl implements DAO<Order> {
     private Connection conn;
     private PreparedStatement st;
     private ResultSet rs;
@@ -20,7 +20,7 @@ public class DAOOrdImpl implements DAO<Orders> {
     }
 
     @Override
-    public int insert(Orders order) throws SQLException, ClassNotFoundException, LoginToPostgresException {
+    public int insert(Order order) throws SQLException, ClassNotFoundException, LoginToPostgresException {
         st = conn.prepareStatement("INSERT INTO OnlineShop.orders(STATUS,DESTINATION)VALUES(?,?);");
         st.setString(1, order.getStatus());
         st.setString(2, order.getShippingDestination());
@@ -31,8 +31,8 @@ public class DAOOrdImpl implements DAO<Orders> {
     }
 
     @Override
-    public Orders get(int id) throws SQLException {
-        Orders order = null;
+    public Order get(int id) throws SQLException {
+        Order order = null;
         st = conn.prepareStatement("SELECT * FROM OnlineShop.order WHERE ORDERID= ?;");
         st.setInt(1, id);
         rs = st.executeQuery();
@@ -41,7 +41,7 @@ public class DAOOrdImpl implements DAO<Orders> {
             String status = rs.getString("STATUS");
             String destination = rs.getString("DESTINATION");
 
-            order = new Orders(order_id,status,destination);
+            order = new Order(order_id,status,destination);
         }
         DAO.closing(rs, st, conn);
         if (order == null) {
@@ -53,8 +53,8 @@ public class DAOOrdImpl implements DAO<Orders> {
     }
 
     @Override
-    public List<Orders> getAll() throws SQLException {
-        List<Orders> orders = new ArrayList<>();
+    public List<Order> getAll() throws SQLException {
+        List<Order> orders = new ArrayList<>();
         st = conn.prepareStatement("SELECT * FROM OnlineShop.orders;");
         rs = st.executeQuery();
 
@@ -62,7 +62,7 @@ public class DAOOrdImpl implements DAO<Orders> {
             int order_id = rs.getInt("ORDERID");
             String status = rs.getString("STATUS");
             String destination = rs.getString("DESTINATION");
-            orders.add(new Orders(order_id,status,destination));
+            orders.add(new Order(order_id,status,destination));
         }
 
         DAO.closing(rs, st, conn);
@@ -70,7 +70,7 @@ public class DAOOrdImpl implements DAO<Orders> {
     }
 
     @Override
-    public int update(Orders order) throws SQLException {
+    public int update(Order order) throws SQLException {
         st = conn.prepareStatement("UPDATE OnlineShop.orders " +
                 "SET STATUS = ?, DESTINATION = ? WHERE ORDERID = ?;");
         st.setString(1, order.getStatus());

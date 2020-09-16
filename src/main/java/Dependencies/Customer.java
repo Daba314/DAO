@@ -1,11 +1,11 @@
-package DB;
+package Dependencies;
 
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class Customers {
+public class Customer {
     private int id;
     private String firstName;
     private String lastName;
@@ -13,7 +13,7 @@ public class Customers {
     private String address;
     private int orderID;
 
-    public Customers(int id, String firstName, String lastName, long phoneNumber, String address, int orderID) {
+    public Customer(int id, String firstName, String lastName, long phoneNumber, String address, int orderID) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

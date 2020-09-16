@@ -1,14 +1,14 @@
-package DB;
+package Dependencies;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class Orders {
+public class Order {
     private int id;
     private String status;
     private String ShippingDestination;
 
-    public Orders(int id, String status, String shippingDestination) {
+    public Order(int id, String status, String shippingDestination) {
         this.id = id;
         this.status = status;
         ShippingDestination = shippingDestination;
