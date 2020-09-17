@@ -1,11 +1,11 @@
 package DAO.Interfaces;
 
-import DB.Customers;
-import DB.Orders;
+import Dependencies.Customer;
+import Dependencies.Order;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface DAOOrd extends DAO<Orders>{
-    List<Customers> getClientsById(long id) throws SQLException;
+public interface DAOOrd extends DAO<Order>{
+    List<Customer> getClientsById(long id) throws SQLException;
 }

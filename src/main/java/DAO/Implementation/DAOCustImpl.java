@@ -2,8 +2,8 @@ package DAO.Implementation;
 
 import DAO.Interfaces.DAO;
 import DAO.Interfaces.DAOCust;
-import DB.Customers;
-import DB.Orders;
+import Dependencies.Customer;
+import Dependencies.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +21,7 @@ public class DAOCustImpl implements DAOCust {
         conn = new PostgresConnectionFactory().createConnection();
     }
     @Override
-    public int insert(Customers customer) throws SQLException, ClassNotFoundException,LoginToPostgresException {
+    public int insert(Customer customer) throws SQLException, ClassNotFoundException,LoginToPostgresException {
         st = conn.prepareStatement("INSERT INTO customers(FIRSTNAME,LASTNAME,PHONENUMBER,ADDRESS,ORDERID)VALUES(?,?,?,?,?);");
         st.setString(1, customer.getFirstName());
         st.setString(2, customer.getLastName());
@@ -35,8 +35,8 @@ public class DAOCustImpl implements DAOCust {
     }
 
     @Override
-    public Customers get(int id) throws SQLException {
-        Customers customer = null;
+    public Customer get(int id) throws SQLException {
+        Customer customer = null;
         st = conn.prepareStatement("SELECT * FROM OnlineShop.customers WHERE CUSTOMERID= ?;");
         st.setInt(1, id);
         rs = st.executeQuery();
@@ -48,7 +48,7 @@ public class DAOCustImpl implements DAOCust {
             String address = rs.getString("ADDRESS");
             int order_id = rs.getInt("ORDERID");
 
-            customer = new Customers(customer_id,firstName,lastName,phoneNumber,address,order_id);
+            customer = new Customer(customer_id,firstName,lastName,phoneNumber,address,order_id);
         }
         DAO.closing(rs, st, conn);
         if (customer == null) {
@@ -60,8 +60,8 @@ public class DAOCustImpl implements DAOCust {
     }
 
     @Override
-    public List<Customers> getAll() throws SQLException {
-        List<Customers> customers = new ArrayList<>();
+    public List<Customer> getAll() throws SQLException {
+        List<Customer> customers = new ArrayList<>();
         st = conn.prepareStatement("SELECT * FROM OnlineShop.customers;");
         rs = st.executeQuery();
         while (rs.next()) {
@@ -71,14 +71,14 @@ public class DAOCustImpl implements DAOCust {
             long phoneNumber = rs.getLong("PHONENUMBER");
             String address = rs.getString("ADDRESS");
             int order_id = rs.getInt("ORDERID");
-            customers.add(new Customers(customer_id,firstName,lastName,phoneNumber,address,order_id));
+            customers.add(new Customer(customer_id,firstName,lastName,phoneNumber,address,order_id));
         }
         DAO.closing(rs, st, conn);
         return customers;
     }
 
     @Override
-    public int update(Customers customer) throws SQLException {
+    public int update(Customer customer) throws SQLException {
         st = conn.prepareStatement("UPDATE OnlineShop.customers " +
                 "SET FIRSTNAME = ?, LASTNAME = ?, PHONENUMBER  = ?, ADDRESS  = ?, ORDERID = ? WHERE CUSTOMERID = ?;");
         st.setString(1, customer.getFirstName());
@@ -112,8 +112,8 @@ public class DAOCustImpl implements DAOCust {
     }
 
     @Override
-    public Customers getByLastName(String lastName) throws SQLException {
-        Customers customer = null;
+    public Customer getByLastName(String lastName) throws SQLException {
+        Customer customer = null;
         st = conn.prepareStatement("SELECT * FROM OnlineShop.customers WHERE LASTNAME = ?;");
         st.setString(1, lastName);
         rs = st.executeQuery();
@@ -125,7 +125,7 @@ public class DAOCustImpl implements DAOCust {
             String address = rs.getString("ADDRESS");
             int order_id = rs.getInt("ORDERID");
 
-            customer = new Customers(customer_id,firstName,lastNameZ,phoneNumber,address,order_id);
+            customer = new Customer(customer_id,firstName,lastNameZ,phoneNumber,address,order_id);
         }
         DAO.closing(rs, st, conn);
         if (customer == null) {
@@ -151,16 +151,16 @@ public class DAOCustImpl implements DAOCust {
     }
 
     @Override
-    public Orders getOrderById(int id) throws SQLException {
+    public Order getOrderById(int id) throws SQLException {
         st = conn.prepareStatement("SELECT * FROM OnlineShop.orders WHERE ORDERID IN (SELECT ORDERID FROM OnlineShop.customers WHERE CUSTOMERID = ?);");
         st.setInt(1,id);
         rs = st.executeQuery();
-        Orders order = null;
+        Order order = null;
         while (rs.next()) {
             int order_id = rs.getInt("ORDERID");
             String status = rs.getString("STATUS");
             String shippingDestination = rs.getString("DESTINATION");
-            order = new Orders(order_id,status,shippingDestination);
+            order = new Order(order_id,status,shippingDestination);
         }
         DAO.closing(st, conn);
         if (order == null) {
