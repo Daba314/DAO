@@ -2,8 +2,8 @@ package DAO.Implementation;
 
 import DAO.Interfaces.DAO;
 import DAO.Interfaces.DAOCust;
-import Dependencies.Customer;
-import Dependencies.Order;
+import Entities.Customer;
+import Entities.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

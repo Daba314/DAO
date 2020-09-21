@@ -1,7 +1,7 @@
 package DAO.Implementation;
 
 import DAO.Interfaces.DAO;
-import Dependencies.Order;
+import Entities.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

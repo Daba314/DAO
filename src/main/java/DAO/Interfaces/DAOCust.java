@@ -1,8 +1,8 @@
 package DAO.Interfaces;
 
 
-import Dependencies.Customer;
-import Dependencies.Order;
+import Entities.Customer;
+import Entities.Order;
 
 import java.sql.SQLException;
 
