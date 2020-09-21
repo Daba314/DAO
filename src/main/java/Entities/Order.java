@@ -1,4 +1,4 @@
-package Dependencies;
+package Entities;
 import lombok.Getter;
 import lombok.Setter;
 
