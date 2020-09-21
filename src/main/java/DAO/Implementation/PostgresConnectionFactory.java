@@ -3,9 +3,7 @@ package DAO.Implementation;
 
 import DAO.Interfaces.ConnectionFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,7 +30,8 @@ public class PostgresConnectionFactory implements ConnectionFactory {
         return DriverManager.getConnection(url,user,password);
     }
     public static void getLoginException() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        File file = new File("userInfo");
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         user = reader.readLine();
         password = reader.readLine();
         reader.close();
