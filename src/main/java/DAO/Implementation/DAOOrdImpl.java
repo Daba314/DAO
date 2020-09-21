@@ -1,6 +1,8 @@
 package DAO.Implementation;
 
 import DAO.Interfaces.DAO;
+import DAO.Interfaces.DAOOrd;
+import Entities.Customer;
 import Entities.Order;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOOrdImpl implements DAO<Order> {
+public class DAOOrdImpl implements DAOOrd {
     private Connection conn;
     private PreparedStatement st;
     private ResultSet rs;
@@ -99,4 +101,47 @@ public class DAOOrdImpl implements DAO<Order> {
         return res;
     }
 
+    @Override
+    public List<Customer> getClientsById(int id) throws SQLException {
+        List<Customer> customers = new ArrayList<>();
+        st = conn.prepareStatement("SELECT * FROM OnlineShop.customers WHERE OrderID=?;");
+        st.setInt(1, id);
+        rs = st.executeQuery();
+
+        while (rs.next()) {
+            int customer_id = rs.getInt("CUSTOMERID");
+            String firstName = rs.getString("FIRSTNAME");
+            String lastName = rs.getString("LASTNAME");
+            long phoneNumber = rs.getLong("PHONENUMBER");
+            String address = rs.getString("ADDRESS");
+            int order_id = rs.getInt("ORDERID");
+
+            customers.add(new Customer(customer_id,firstName,lastName,phoneNumber,address,order_id));
+        }
+
+        DAO.closing(rs, st, conn);
+        return customers;
+    }
+
+    @Override
+    public Order getByStatus(String status) throws SQLException {
+        Order order = null;
+        st = conn.prepareStatement("SELECT * FROM OnlineShop.order WHERE STATUS = ?;");
+        st.setString(1, status);
+        rs = st.executeQuery();
+        while (rs.next()) {
+            int order_id = rs.getInt("ORDERID");
+            String statuz = rs.getString("STATUS");
+            String destination = rs.getString("DESTINATION");
+
+            order = new Order(order_id,statuz,destination);
+        }
+        DAO.closing(rs, st, conn);
+        if (order == null) {
+            System.out.println("Something wrong with getting order:  - " + status);
+        } else {
+            System.out.println("Order by status:" + status + " successfully retrieved");
+        }
+        return order;
+    }
 }
