@@ -1,8 +1,7 @@
 package DAO.Implementation;
 
 import DAO.Interfaces.DAO;
-import Dependencies.Order;
-
+import Entities.Order;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,12 +14,12 @@ public class DAOOrdImpl implements DAO<Order> {
     private PreparedStatement st;
     private ResultSet rs;
 
-    public DAOOrdImpl() throws SQLException, ClassNotFoundException, LoginToPostgresException {
+    public DAOOrdImpl() throws SQLException, LoginToPostgresException {
         conn = new PostgresConnectionFactory().createConnection();
     }
 
     @Override
-    public int insert(Order order) throws SQLException, ClassNotFoundException, LoginToPostgresException {
+    public int insert(Order order) throws SQLException {
         st = conn.prepareStatement("INSERT INTO OnlineShop.orders(STATUS,DESTINATION)VALUES(?,?);");
         st.setString(1, order.getStatus());
         st.setString(2, order.getShippingDestination());

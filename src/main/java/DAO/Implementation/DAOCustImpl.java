@@ -2,8 +2,8 @@ package DAO.Implementation;
 
 import DAO.Interfaces.DAO;
 import DAO.Interfaces.DAOCust;
-import Dependencies.Customer;
-import Dependencies.Order;
+import Entities.Customer;
+import Entities.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,11 +17,11 @@ public class DAOCustImpl implements DAOCust {
     private PreparedStatement st;
     private ResultSet rs;
 
-    public DAOCustImpl() throws SQLException, ClassNotFoundException, LoginToPostgresException {
+    public DAOCustImpl() throws SQLException, LoginToPostgresException {
         conn = new PostgresConnectionFactory().createConnection();
     }
     @Override
-    public int insert(Customer customer) throws SQLException, ClassNotFoundException,LoginToPostgresException {
+    public int insert(Customer customer) throws SQLException {
         st = conn.prepareStatement("INSERT INTO customers(FIRSTNAME,LASTNAME,PHONENUMBER,ADDRESS,ORDERID)VALUES(?,?,?,?,?);");
         st.setString(1, customer.getFirstName());
         st.setString(2, customer.getLastName());

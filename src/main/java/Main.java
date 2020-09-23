@@ -1,7 +1,7 @@
 import DAO.Implementation.DAOCustImpl;
 import DAO.Implementation.LoginToPostgresException;
 import DAO.Interfaces.DAOCust;
-import Dependencies.Customer;
+import Entities.Customer;
 
 import java.sql.SQLException;
 
