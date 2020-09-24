@@ -21,4 +21,16 @@ public class Customer {
         this.address = address;
         this.orderID = orderID;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", address='" + address + '\'' +
+                ", orderID=" + orderID +
+                '}';
+    }
 }

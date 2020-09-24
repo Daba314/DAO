@@ -124,8 +124,8 @@ public class DAOOrdImpl implements DAOOrd {
     }
 
     @Override
-    public Order getByStatus(String status) throws SQLException {
-        Order order = null;
+    public List<Order> getByStatus(String status) throws SQLException {
+        List<Order> orders = new ArrayList<>();
         st = conn.prepareStatement("SELECT * FROM OnlineShop.order WHERE STATUS = ?;");
         st.setString(1, status);
         rs = st.executeQuery();
@@ -133,15 +133,14 @@ public class DAOOrdImpl implements DAOOrd {
             int order_id = rs.getInt("ORDERID");
             String statuz = rs.getString("STATUS");
             String destination = rs.getString("DESTINATION");
-
-            order = new Order(order_id,statuz,destination);
+            orders.add(new Order(order_id,statuz,destination));
         }
         DAO.closing(rs, st, conn);
-        if (order == null) {
+        if (orders == null) {
             System.out.println("Something wrong with getting order:  - " + status);
         } else {
             System.out.println("Order by status:" + status + " successfully retrieved");
         }
-        return order;
+        return orders;
     }
 }
