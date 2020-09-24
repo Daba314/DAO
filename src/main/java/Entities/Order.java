@@ -14,5 +14,16 @@ public class Order {
         ShippingDestination = shippingDestination;
     }
 
+    public Order(String shippingDestination) {
+        this.ShippingDestination=shippingDestination;
+    }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", ShippingDestination='" + ShippingDestination + '\'' +
+                '}';
+    }
 }

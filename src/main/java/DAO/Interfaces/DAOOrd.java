@@ -7,5 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface DAOOrd extends DAO<Order>{
-    List<Customer> getClientsById(long id) throws SQLException;
+    List<Customer> getClientsById(int id) throws SQLException;
+    List<Order> getByStatus(String status) throws SQLException;
 }
