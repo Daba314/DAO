@@ -4,5 +4,7 @@ As a open-source relational database management system  I used PostgreSQL
 
 For access for databse I used PrepareStatement 
 
+There are two external libraries: lombok and postgres-connection
+
 ![customers](https://user-images.githubusercontent.com/56975146/114917413-e9335000-9df3-11eb-9799-d15c8d38ddf3.png)
 ![orders](https://user-images.githubusercontent.com/56975146/114917418-eafd1380-9df3-11eb-9732-f78dd22d2159.png)
